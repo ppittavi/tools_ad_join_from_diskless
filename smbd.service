@@ -1,0 +1,18 @@
+[Unit]
+Description=Samba SMB Daemon
+Documentation=man:smbd(8) man:samba(7) man:smb.conf(5)
+After=network.target nmbd.service winbind.service
+
+[Service]
+ExecStartPre=/usr/local/sbin/pre_smbd.sh
+Type=notify
+NotifyAccess=all
+PIDFile=/var/run/samba/smbd.pid
+LimitNOFILE=16384
+EnvironmentFile=-/etc/default/samba
+ExecStart=/usr/sbin/smbd $SMBDOPTIONS
+ExecReload=/bin/kill -HUP $MAINPID
+LimitCORE=infinity
+
+[Install]
+WantedBy=multi-user.target

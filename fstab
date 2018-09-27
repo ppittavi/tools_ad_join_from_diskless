@@ -1,0 +1,5 @@
+none		/tmp			tmpfs	defaults	0	0
+none		/var/lib/sss/		tmpfs	defaults	0	0
+none		/var/lib/samba/		tmpfs	defaults	0	0
+none		/var/log/sssd/	tmpfs	defaults	0	0
+

@@ -1,0 +1,17 @@
+[Unit]
+Description=System Security Services Daemon
+# SSSD must be running before we permit user sessions
+Before=systemd-user-sessions.service nss-user-lookup.target
+Wants=nss-user-lookup.target
+
+[Service]
+ExecStartPre=/usr/local/sbin/host_specific.sh
+EnvironmentFile=-/etc/default/sssd
+ExecStart=/usr/sbin/sssd -d 3 -i -f 
+Type=notify
+NotifyAccess=main
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
